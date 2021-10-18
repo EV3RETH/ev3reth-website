@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client"
 import { gql } from 'apollo-boost'
+import { Wallet } from "mintbase"
 import { useEffect, useState } from "react"
+import { useWallet } from "../context/mintbase-wallet-context"
 
 
 export type Store = {
@@ -17,12 +19,23 @@ export type Store = {
 
 export type Thing = {
 	id: string
+	tokens: Token[]
 	metadata: {
 		title: string
 		media: string
+		description: string
+		animation_url: string
+		external_url: string
 	}
 	memo: string
 	metaId: string
+}
+
+type Token = {
+	id: string
+	list: {
+		price: string
+	}
 }
 
 export const FETCH_STORE = gql`
@@ -39,7 +52,7 @@ export const FETCH_STORE = gql`
       }
       tokens(
         order_by: { thingId: asc }
-        where: { storeId: { _eq: $storeId }, burnedAt: { _is_null: true } }
+        where: { storeId: { _eq: $storeId }, burnedAt: { _is_null: true }, list: {removedAt: {_is_null: true}}}
         limit: $limit
         offset: $offset
         distinct_on: thingId
@@ -50,18 +63,34 @@ export const FETCH_STORE = gql`
           id
           metaId
           memo
-          tokens {
+          tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
             minter
+						id
+            list {
+              price
+            }
           }
           metadata {
             title
             media
+						animation_url
+						external_url
+						description
           }
         }
       }
     }
   }
 `
+
+export const buy = (wallet: Wallet, tokenID: string, tokenPrice: string) => {
+	const tokenPriceNumber = Number(tokenPrice);
+	tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false })
+
+	// create marketAddress env variable for testnet/mainnet
+	// wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
+	wallet?.makeOffer(tokenID, tokenPrice)
+}
 
 export default function useMintbaseStore({ storeId }: { storeId: string }) {
 	const [store, setStore] = useState<Store | null>(null)

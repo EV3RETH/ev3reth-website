@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import TwitterIcon from '@material-ui/icons/Twitter';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import styles from '../styles/components/footer.module.css'
 import logo from '../public/images/Ev3reth-Logo.png'
 import { PATHNAMES } from './main-navigation';
