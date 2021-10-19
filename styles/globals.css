@@ -13,7 +13,8 @@ body {
 	--body-text-color: whitesmoke;
 	--heading-font: 'Zen Dots', sans-serif;
 	--heading-text-color: whitesmoke;
-	--accent-color: skyblue
+	--accent-color: skyblue;
+	--grey: grey;
 }
 html {
 	background-color: black;

@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client"
 import { gql } from 'apollo-boost'
 import { Wallet } from "mintbase"
 import { useEffect, useState } from "react"
-import { useWallet } from "../context/mintbase-wallet-context"
 
 
 export type Store = {
@@ -38,7 +37,7 @@ type Token = {
 	}
 }
 
-export const FETCH_STORE = gql`
+const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
     store(where: { id: { _eq: $storeId } }) {
       id

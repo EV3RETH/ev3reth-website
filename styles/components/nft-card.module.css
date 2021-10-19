@@ -1,32 +1,126 @@
 .skeleton, .card {
 	width: 20rem;
-	height: 30rem;
+	height: 31rem;
 	background: linear-gradient(135deg, var(--grey-gradient));
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+	transition: 0.5s;
 	border-radius: 1rem;
 }
 
 .card {
 	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	position: relative;
+	padding-bottom: 4rem; /*to account for the button*/
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.card:hover {
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+	transform: scale(1.02);
 }
 
 .mediaContainer {
 	width: 100%;
-	height: 12rem;
+	height: 20rem;
 	position: relative;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.card h2 {
-	margin-top: 1rem;
+.infoContainer {
+	padding: 0.7rem 0.5rem;
+	display: grid;
+	grid-template-columns:  1fr 3.7rem 3.4rem;
+	align-items: center;
+	gap: 0.2rem;
 	text-align: center;
+}
+.infoContainer aside {
+	font-size: 0.8rem;
+	font-weight: lighter;
+	color: var(--grey);
+	letter-spacing: 0.1rem;
+}
+.infoContainer p {
+	margin: 0.2rem 0 0;
+}
+
+.infoContainer h3 {
+	font-family: var(--heading-font);
+	margin: 0;
+	text-align: left;
+	font-size: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.5rem;
+}
+.description {
+	position: relative;
+	font-size: 0.9rem;
+	margin: 0;
+	padding: 0 1rem;
+	height: 4.5rem;
+	word-wrap: break-word;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding: 0 1.5rem;
+}
+.description::after {
+	position: absolute;
+	bottom: -2rem;
+	left: 0rem;
+	width: 120%;
+	content: "";
+	background-color: rgb(53, 53, 53);
+	height: 4rem;
+	filter: blur(10px);
 }
 
 .card button {
 	border-radius: 0;
+	padding: 0.7rem 0;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	text-shadow: none;
+}
+
+.card button:hover {
+	transform: scale(1) !important;
+}
+
+.modalContent {
+	display: flex;
+	flex-direction: column;
+}
+
+.modalContent .mediaContainer {
+	border-radius: 2rem;
+	height: 34.9rem;
+	overflow: hidden;
+	background: linear-gradient(160deg, var(--grey-gradient))
+}
+
+.modalContent .infoContainer {
+	padding: 2rem 0;
+	grid-template-columns: 1fr 7rem 7rem;
+}
+
+.modalContent .infoContainer h3 {
+	font-size: 2rem;
+	padding: 0;
+}
+
+.modalContent .description {
+	font-size: 1rem;
+	padding: 0 0 2rem;
+	height: auto;
+}
+
+.modalContent .description::after{
+	display: none;
+}
+
+.modalContent button {
+	align-self: center;
 }

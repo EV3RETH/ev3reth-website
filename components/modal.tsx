@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from '@mui/icons-material/Cancel';
 import utilStyles from '../styles/utils.module.css';
 import styles from '../styles/components/modal.module.css';
 
