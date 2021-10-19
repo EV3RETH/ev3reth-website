@@ -124,3 +124,58 @@
 .modalContent button {
 	align-self: center;
 }
+
+@media only screen and (max-width: 1024px) {
+	.card{
+		width: 16rem;
+		height: 26rem;
+	}
+	.mediaContainer {
+		height: 16rem;
+	}
+	.card .infoContainer h3 {
+		font-size: 1.1rem;
+	}
+	.card .infoContainer aside {
+		font-size: 0.7rem;
+	}
+	.card .infoContainer p {
+		font-size: 0.8rem;
+	}
+	.card .description {
+		font-size: 0.8rem;
+	}
+
+	.modalContent .mediaContainer {
+		height: 25.5rem;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.modalContent .mediaContainer {
+		height: 22.3rem;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.modalContent .mediaContainer {
+		height: 19rem;
+	}
+	.modalContent .infoContainer aside {
+		font-size: 0.7rem;
+	}
+	.modalContent .infoContainer p {
+		font-size: 0.8rem;
+		line-height: 1rem;
+	}
+	.modalContent .infoContainer h3 {
+		font-size: 1.3rem;
+	}
+	.modalContent .infoContainer {
+		padding: 1rem 0;
+		grid-template-columns: 1fr 4rem 4rem;
+	}
+	.modalContent .description {
+		font-size: 0.8rem;
+	}
+}

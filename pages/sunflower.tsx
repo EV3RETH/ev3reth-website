@@ -11,7 +11,7 @@ export default function Sunflower() {
 	const { nfts, loading } = useMintbaseStore({ storeId: "ev3reth.mintspace2.testnet" })
 
 	const renderedNFTs = useMemo(() => {
-		return nfts.map(nft => <NftCard nft={nft} />)
+		return [...nfts, ...nfts].map(nft => <NftCard nft={nft} />)
 	}, [nfts])
 
 	return (
