@@ -155,6 +155,13 @@
 	.modalContent .mediaContainer {
 		height: 22.3rem;
 	}
+	.card {
+		width: 18rem;
+		height: 28rem;
+	}
+	.mediaContainer {
+		height: 18rem;
+	}
 }
 
 @media only screen and (max-width: 480px) {
