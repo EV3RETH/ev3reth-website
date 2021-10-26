@@ -19,6 +19,7 @@ interface CardProps {
 export default function NftCard({ nft }: CardProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [mediaLoaded, setMediaLoaded] = useState(false)
+	const [isPlaying, setIsPLaying] = useState(false)
 	const { wallet, isConnected, details } = useWallet()
 	const tokenNumber = nft.tokens.length
 	const tokenInfo = nft.tokens[0]
@@ -27,6 +28,7 @@ export default function NftCard({ nft }: CardProps) {
 	const description = nft.metadata?.description;
 	const bigNumPrice = tokenInfo?.list?.price;
 	const video = nft.metadata?.animation_url;
+	const link = nft.metadata.external_url
 
 	const loaded = wallet && tokenInfo
 
@@ -50,14 +52,20 @@ export default function NftCard({ nft }: CardProps) {
 	const content = (
 		<>
 			<div className={styles.mediaContainer}>
-				{media &&
-					<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />
+				{isPlaying && video
+					? <ReactPlayer url={video} playing className={styles.videoPlayer} controls loop={true} />
+					: (<>
+						{media &&
+							<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />
+						}
+						{video &&
+							<button onClick={() => setIsPLaying(true)}>
+								<PlayCircleIcon fontSize="large" />
+							</button>
+						}
+					</>)
 				}
-				{video &&
-					<button>
-						<PlayCircleIcon fontSize="large" />
-					</button>
-				}
+
 			</div>
 
 			<div className={styles.infoContainer} onClick={() => setIsOpen(true)}>
@@ -72,7 +80,7 @@ export default function NftCard({ nft }: CardProps) {
 				</div>
 			</div>
 			<p className={styles.description} onClick={() => setIsOpen(true)}>{description}</p>
-			{/* {video && <ReactPlayer url={video} playing />} */}
+			<a className={styles.mintbaseLink} href={link} target="_blank" rel="noopener noreferrer">View on Mintbase</a>
 			<button
 				className={classNames(buyButtonType, styles.buyButton)}
 				onClick={purchase}
