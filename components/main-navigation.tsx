@@ -67,10 +67,11 @@ export default function MainNavigation() {
 					{isConnected ? "Log Out" : "Connect NEAR Wallet"}
 				</button>
 
-				{isConnected &&
-					<p className={classNames(utilStyles.primaryButton, utilStyles.noHover)}>
+				{isConnected
+					? <p className={classNames(utilStyles.primaryButton, utilStyles.noHover)}>
 						{details.accountId}: {details.balance}
 					</p>
+					: <br />
 				}
 
 				<div className={styles.linksContainer}>

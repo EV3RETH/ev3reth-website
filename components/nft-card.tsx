@@ -8,7 +8,9 @@ import Skeleton from '@mui/material/Skeleton';
 import { formatNear } from '../utils';
 import { useMemo, useState } from 'react';
 import Modal from './modal';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { style } from '@mui/system';
+import classNames from 'classnames';
 
 interface CardProps {
 	nft: Thing
@@ -16,6 +18,7 @@ interface CardProps {
 
 export default function NftCard({ nft }: CardProps) {
 	const [isOpen, setIsOpen] = useState(false)
+	const [mediaLoaded, setMediaLoaded] = useState(false)
 	const { wallet, isConnected, details } = useWallet()
 	const tokenNumber = nft.tokens.length
 	const tokenInfo = nft.tokens[0]
@@ -27,26 +30,37 @@ export default function NftCard({ nft }: CardProps) {
 
 	const loaded = wallet && tokenInfo
 
-	const mediaLoaded = false
+	const buyButtonType = isConnected ? utilStyles.primaryButton : utilStyles.secondaryButton;
+
 	const formatedPrice = useMemo(() => {
 		const stringyBigNumPrice = Number(bigNumPrice).toLocaleString('fullwide', { useGrouping: false })
 		return formatNear(stringyBigNumPrice)
 	}, [])
 
 	function purchase() {
-		if (!loaded) return
-		buy(wallet, tokenInfo.id, bigNumPrice)
+		if (isConnected) {
+			if (!loaded) return
+			buy(wallet, tokenInfo.id, bigNumPrice)
+		} else {
+			wallet?.connect({ requestSignIn: true })
+		}
 	}
+
 
 	const content = (
 		<>
 			<div className={styles.mediaContainer}>
 				{media &&
-					<Image alt={title} src={media} layout="fill" objectFit="contain" />
+					<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />
+				}
+				{video &&
+					<button>
+						<PlayCircleIcon fontSize="large" />
+					</button>
 				}
 			</div>
 
-			<div className={styles.infoContainer}>
+			<div className={styles.infoContainer} onClick={() => setIsOpen(true)}>
 				<h3>{title}</h3>
 				<div>
 					<aside>Available</aside>
@@ -57,26 +71,25 @@ export default function NftCard({ nft }: CardProps) {
 					<p>{formatedPrice}N</p>
 				</div>
 			</div>
-			<p className={styles.description}>{description}</p>
+			<p className={styles.description} onClick={() => setIsOpen(true)}>{description}</p>
 			{/* {video && <ReactPlayer url={video} playing />} */}
 			<button
-				className={utilStyles.primaryButton}
+				className={classNames(buyButtonType, styles.buyButton)}
 				onClick={purchase}
-				disabled={!loaded}
 			>
-				Buy now
+				{!isConnected
+					? "Connect NEAR Wallet"
+					: "Buy now"
+				}
 			</button>
 		</>
 	)
 
 	return (
 		<>
-			<div className={styles.card} onClick={() => setIsOpen(true)}>
-				{
-					mediaLoaded
-						? <Skeleton variant="rectangular" animation="wave" className={styles.skeleton} />
-						: content
-				}
+			<div className={styles.card}>
+				{content}
+				<Skeleton variant="rectangular" animation="wave" className={classNames(styles.skeleton, { [styles.hidden]: mediaLoaded })} />
 			</div>
 			<Modal
 				isOpen={isOpen}
