@@ -68,8 +68,8 @@ export default function MainNavigation() {
 				</button>
 
 				{isConnected
-					? <p className={classNames(utilStyles.primaryButton, utilStyles.noHover)}>
-						{details.accountId}: {details.balance}
+					? <p className={classNames(utilStyles.primaryButton, utilStyles.noHover, styles.accountName)}>
+						<span>{details.accountId}</span>: {details.balance}
 					</p>
 					: <br />
 				}

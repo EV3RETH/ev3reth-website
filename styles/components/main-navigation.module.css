@@ -25,6 +25,7 @@
 	opacity: 0;
 	display: grid;
 	grid-template-columns: 0.5fr 1fr 0.5fr;
+	gap: 1rem;
 	justify-items: center;
 	align-items: center;
 	width: 100%;
@@ -38,6 +39,13 @@
 }
 .container button {
 	justify-self: flex-start;
+}
+
+.accountName {
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .linksContainer {
@@ -66,6 +74,9 @@
 	color: var(--body-text-color);
 	text-align: center;
 }
+.link:first-child {
+	margin-left: 0;
+}
 
 .link.selected::after {
 	content: "";
@@ -77,12 +88,22 @@
 	border-radius: 0.3rem;
 	background-image: linear-gradient(90deg, var(--main-gradient));
 }
-
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 780px) {
 	.toggleIcon {
 		width: 4rem;
 		height: 4rem;
 	}
+	.container {
+		padding: 0 3rem
+	}
+	.accountName span{
+		white-space: nowrap;
+		width: 5rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+@media only screen and (max-width: 480px) {
 	.container {
 		grid-template-columns: 1fr;
 		padding: 1rem 0 0;

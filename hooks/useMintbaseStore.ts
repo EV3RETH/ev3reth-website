@@ -7,78 +7,57 @@ import { useEffect, useState } from "react"
 export type Store = {
 	id: string
 	name: string
-	symbol: string
-	baseUri: string
-	owner: string
-	minters: {
-		account: string
-		enabled: string
-	}[]
 }
 
 export type Thing = {
+	tokenId: string;
 	id: string
 	tokens: Token[]
+	storeId: string;
 	metadata: {
 		title: string
 		media: string
 		description: string
 		animation_url: string
-		external_url: string
 	}
-	memo: string
-	metaId: string
 }
 
 type Token = {
 	id: string
 	list: {
 		price: string
+		ownerId: string
 	}
+	holder: string;
 }
 
 const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
-    store(where: { id: { _eq: $storeId } }) {
-      id
-      name
-      symbol
-      baseUri
-      owner
-      minters {
-        account
-        enabled
-      }
-      tokens(
-        order_by: { thingId: asc }
-        where: { storeId: { _eq: $storeId }, burnedAt: { _is_null: true }, list: {removedAt: {_is_null: true}}}
-        limit: $limit
-        offset: $offset
-        distinct_on: thingId
-      ) {
-        id
-        thingId
-        thing {
-          id
-          metaId
-          memo
-          tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
-            minter
+		store(where: {id: {_eq: $storeId}}) {
+			name
+			id
+			tokens(order_by: {thingId: asc}, where: {storeId: {_eq: $storeId}, burnedAt: {_is_null: true}, list: {removedAt: {_is_null: true}}}, limit: $limit, offset: $offset, distinct_on: thingId) {
+				id
+				thing {
+					id
+					storeId
+					tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
 						id
-            list {
-              price
-            }
-          }
-          metadata {
-            title
-            media
+						list {
+							price
+							ownerId
+						}
+						holder
+					}
+					metadata {
+						title
+						media
 						animation_url
-						external_url
 						description
-          }
-        }
-      }
-    }
+					}
+				}
+			}
+		}
   }
 `
 
@@ -112,7 +91,12 @@ export default function useMintbaseStore({ storeId }: { storeId: string }) {
 			...data.store[0],
 		})
 
-		const things = data.store[0].tokens.map((token: any) => token.thing)
+		const things = data.store[0].tokens.map((token: any) => (
+			{
+				...token.thing,
+				tokenId: token.id
+			}
+		))
 
 		setThings(things)
 	}, [data])

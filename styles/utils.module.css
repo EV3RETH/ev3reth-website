@@ -69,7 +69,10 @@
 }
 .primaryButton:disabled, .secondaryButton:disabled {
 	filter: grayscale(1.0);
+	transform: scale(1) !important;
+	cursor: inherit;
 }
+
 .primaryButton {
 	background: linear-gradient(315deg, var(--main-gradient));
 	box-shadow: inset 2px 1px 5px 1px rgba(255, 255, 255, 0.5);

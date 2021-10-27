@@ -26,8 +26,6 @@
 	transition: 0.3s;
 }
 
-
-
 .card:hover {
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
 	transform: scale(1.02);
@@ -39,6 +37,10 @@
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.5);
 	transition: 0.5s;
+}
+
+.mediaContainer.hidden {
+	opacity: 0;
 }
 
 .mediaContainer button {
@@ -124,6 +126,10 @@
 	position: absolute;
 	bottom: 0;
 	text-shadow: none;
+}
+
+.card .buyButton.hidden {
+	opacity: 0;
 }
 
 .card .buyButton:hover {
