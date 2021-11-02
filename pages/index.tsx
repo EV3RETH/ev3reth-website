@@ -48,9 +48,11 @@ export default function Home({ bgIsLoaded }: HomeProps) {
 						quality={100}
 					/>
 				</div>
-				<a href={LINKS.PARAS} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Paras</a>
-				<a href={LINKS.OPEN_SEA} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Open Sea</a>
-				<a href={LINKS.TWITTER} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Twitter</a>
+				<div className={classNames(styles.linksContainer, { [styles.imageLoaded]: bgIsLoaded })}>
+					<a href={LINKS.PARAS} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Paras</a>
+					<a href={LINKS.OPEN_SEA} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Open Sea</a>
+					<a href={LINKS.TWITTER} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Twitter</a>
+				</div>
 			</main>
 			{wavesOn ? <Waves color={wavesBgColor} /> : null}
 		</Layout>

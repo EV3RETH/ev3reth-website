@@ -10,6 +10,12 @@
 }
 .homeContainer a {
 	margin-bottom: 1rem;
+	display: block;
+	text-align: center;
+}
+.linksContainer:not(.imageLoaded) {
+	filter: blur(2px);
+	animation: blur-pulse 3s infinite ease-in-out;
 }
 .homeTitle {
 	position: relative;
