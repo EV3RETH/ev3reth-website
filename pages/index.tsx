@@ -9,6 +9,12 @@ import Waves from '../components/waves'
 import titleColor from '../public/images/Ev3reth-color.webp'
 import titlePlain from '../public/images/Ev3reth-plain.webp'
 
+export const LINKS = {
+	TWITTER: "https://twitter.com/EV3RETH",
+	OPEN_SEA: "https://opensea.io/collection/ev3reth-collection",
+	PARAS: "https://paras.id/ev3reth.near/creation"
+}
+
 
 interface HomeProps {
 	bgIsLoaded: boolean;
@@ -42,6 +48,9 @@ export default function Home({ bgIsLoaded }: HomeProps) {
 						quality={100}
 					/>
 				</div>
+				<a href={LINKS.PARAS} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Paras</a>
+				<a href={LINKS.OPEN_SEA} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Open Sea</a>
+				<a href={LINKS.TWITTER} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Twitter</a>
 			</main>
 			{wavesOn ? <Waves color={wavesBgColor} /> : null}
 		</Layout>

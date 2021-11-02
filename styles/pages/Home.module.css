@@ -8,9 +8,12 @@
 	align-items: center;
 	justify-content: center;
 }
+.homeContainer a {
+	margin-bottom: 1rem;
+}
 .homeTitle {
 	position: relative;
-	margin-bottom: 5rem;
+	margin-bottom: 2rem;
 	cursor: pointer;
 	transition: 0.5s;
 	filter: blur(0px);
@@ -158,7 +161,7 @@
 	}
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 812px) {
 	.homeTitle {
 		--title-width: 28rem;
 		--move-amount: 0.4;

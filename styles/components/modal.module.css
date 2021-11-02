@@ -57,7 +57,7 @@
 	}
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 812px) {
 	.body {
 		width: 90vw;
 		padding: 2rem 2rem 1.5rem;

@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useWallet } from "../context/mintbase-wallet-context";
 import ReactPlayer from "react-player";
 
+const SUNFLOWER_URL = "https://vimeo.com/638908368/0c11145a82"
 
 export default function Sunflower() {
 	const [isViewing, setIsViewing] = useState(false)
@@ -40,14 +41,14 @@ export default function Sunflower() {
 
 	const VideoView = (<>
 		<ReactPlayer
-			url="https://vimeo.com/638908368/0c11145a82"
+			url={SUNFLOWER_URL}
 			playing
 			controls
 			loop
 			height="35rem"
 			width="100%"
 		/>
-		<a href="https://vimeo.com/638908368/0c11145a82" target="_blank" rel="noopener noreferrer">Download Here</a>
+		<a href={SUNFLOWER_URL} target="_blank" rel="noopener noreferrer">Download Here</a>
 	</>)
 
 	return (

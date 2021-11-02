@@ -88,7 +88,7 @@
 	border-radius: 0.3rem;
 	background-image: linear-gradient(90deg, var(--main-gradient));
 }
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 812px) {
 	.toggleIcon {
 		width: 4rem;
 		height: 4rem;
