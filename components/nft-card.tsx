@@ -41,9 +41,9 @@ export default function NftCard({ nft }: CardProps) {
 
 	useEffect(() => {
 		if (showVideo) {
-			document.addEventListener("touchstart", handleStop)
+			document.addEventListener("touchend", handleStop)
 		}
-		return () => document.removeEventListener("touchstart", handleStop)
+		return () => document.removeEventListener("touchend", handleStop)
 	}, [showVideo])
 
 	function purchase() {
