@@ -58,7 +58,7 @@ export default function Sunflower() {
 							className={classNames(utilStyles.secondaryButton)}
 							onClick={closeView}
 						>
-							Back to prints
+							Back to tickets
 						</button>
 						: <button
 							className={classNames(utilStyles.primaryButton)}

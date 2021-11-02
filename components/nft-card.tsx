@@ -22,7 +22,7 @@ export default function NftCard({ nft }: CardProps) {
 	const [showVideo, setShowVideo] = useState(false)
 	const [isPlaying, setIsPLaying] = useState(false)
 	const { wallet, isConnected, details } = useWallet()
-	const mediaRef = useRef<div>()
+	const mediaRef = useRef<HTMLDivElement>(null)
 	const tokenNumber = nft.tokens.length
 	const individualToken = nft.tokens[0]
 	const media = nft.metadata?.media;
@@ -50,7 +50,7 @@ export default function NftCard({ nft }: CardProps) {
 		}
 	}
 	function captureFocus() {
-		mediaRef.current.focus()
+		mediaRef?.current?.focus()
 	}
 	function handleBlur() {
 		setIsPLaying(false)
