@@ -26,9 +26,8 @@ type Token = {
 	id: string
 	list: {
 		price: string
-		ownerId: string
 	}
-	holder: string;
+	ownerId: string
 }
 
 const FETCH_STORE = gql`
@@ -45,9 +44,8 @@ const FETCH_STORE = gql`
 						id
 						list {
 							price
-							ownerId
 						}
-						holder
+						ownerId
 					}
 					metadata {
 						title
@@ -59,6 +57,13 @@ const FETCH_STORE = gql`
 			}
 		}
   }
+`
+const FETCH_HOLDERS = gql`
+	query FetchHolders($storeId: String!) {
+		token(where: {storeId: {_eq: $storeId}}, distinct_on: ownerId) {
+			ownerId
+		}
+	}
 `
 
 export const buy = (wallet: Wallet, tokenID: string, tokenPrice: string) => {
@@ -73,14 +78,23 @@ export const buy = (wallet: Wallet, tokenID: string, tokenPrice: string) => {
 export default function useMintbaseStore({ storeId }: { storeId: string }) {
 	const [store, setStore] = useState<Store | null>(null)
 	const [things, setThings] = useState<Thing[] | []>([])
+	const [holders, setHolders] = useState<string[]>([]) //OwnerIds
 
-	const { data, loading } = useQuery(FETCH_STORE, {
+	const { data: holderData, loading: holderLoading } = useQuery(FETCH_HOLDERS, {
+		variables: {
+			storeId: storeId,
+		},
+	})
+	const { data, loading: storeLoading } = useQuery(FETCH_STORE, {
 		variables: {
 			storeId: storeId,
 			limit: 10,
 			offset: 0,
 		},
 	})
+
+	const loading = storeLoading || holderLoading
+
 
 	useEffect(() => {
 		if (!data) return
@@ -101,9 +115,16 @@ export default function useMintbaseStore({ storeId }: { storeId: string }) {
 		setThings(things)
 	}, [data])
 
+	useEffect(() => {
+		console.log("hodler-----", holderData)
+		if (!holderData?.token) return;
+		setHolders(holderData.token.map((t: any) => t.ownerId))
+	}, [holderData])
+
 	return {
 		loading,
 		store,
+		holders,
 		nfts: things
 	}
 }

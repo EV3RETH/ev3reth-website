@@ -19,7 +19,7 @@ interface CardProps {
 export default function NftCard({ nft }: CardProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [mediaLoaded, setMediaLoaded] = useState(false)
-	const [isPlaying, setIsPLaying] = useState(false)
+	const [showVideo, setShowVideo] = useState(false)
 	const { wallet, isConnected, details } = useWallet()
 	const tokenNumber = nft.tokens.length
 	const individualToken = nft.tokens[0]
@@ -28,7 +28,7 @@ export default function NftCard({ nft }: CardProps) {
 	const description = nft.metadata?.description;
 	const bigNumPrice = individualToken?.list?.price;
 	const video = nft.metadata?.animation_url;
-	const link = "https://testnet.mintbase.io/store/" + nft.storeId
+	const link = `https://www.mintbase.io/thing/${nft.id}`
 
 	const loaded = wallet && individualToken
 
@@ -52,14 +52,14 @@ export default function NftCard({ nft }: CardProps) {
 	const content = (
 		<>
 			<div className={classNames(styles.mediaContainer, { [styles.hidden]: !mediaLoaded })}>
-				{isPlaying && video
-					? <ReactPlayer url={video} playing className={styles.videoPlayer} controls loop={true} />
+				{showVideo && video
+					? <ReactPlayer url={video} className={styles.videoPlayer} controls loop={true} />
 					: (<>
 						{media &&
 							<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />
 						}
 						{video &&
-							<button onClick={() => setIsPLaying(true)}>
+							<button onClick={() => setShowVideo(true)}>
 								<PlayCircleIcon fontSize="large" />
 							</button>
 						}

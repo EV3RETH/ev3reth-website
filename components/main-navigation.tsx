@@ -19,6 +19,9 @@ export default function MainNavigation() {
 	const { pathname } = useRouter()
 	const { wallet, isConnected, details } = useWallet()
 
+	const onSunflower = pathname === PATHNAMES.SUNFLOWER
+	const onHome = pathname === PATHNAMES.HOME
+
 
 	useEffect(() => {
 		if (window.screen?.width <= 480) {
@@ -59,27 +62,30 @@ export default function MainNavigation() {
 			</button>
 			<nav className={classNames(styles.container, { [styles.navActive]: isVisible })}>
 
-				<button
-					className={utilStyles.secondaryButton}
-					onClick={handleWalletConnect}
-					style={{ position: "relative" }}
-				>
-					{isConnected ? "Log Out" : "Connect NEAR Wallet"}
-				</button>
+				{onSunflower
+					? <button
+						className={utilStyles.secondaryButton}
+						onClick={handleWalletConnect}
+						style={{ position: "relative" }}
+					>
+						{isConnected ? "Log Out" : "Connect NEAR Wallet"}
+					</button>
+					: <p />
+				}
 
-				{isConnected
+				{isConnected && onSunflower
 					? <p className={classNames(utilStyles.primaryButton, utilStyles.noHover, styles.accountName)}>
 						<span>{details.accountId}</span>: {details.balance}
 					</p>
-					: <br />
+					: <p />
 				}
 
 				<div className={styles.linksContainer}>
 					<Link href={PATHNAMES.HOME}>
-						<a className={classNames(styles.link, { [styles.selected]: pathname === PATHNAMES.HOME })}>Home</a>
+						<a className={classNames(styles.link, { [styles.selected]: onHome })}>Home</a>
 					</Link>
 					<Link href={PATHNAMES.SUNFLOWER}>
-						<a className={classNames(styles.link, { [styles.selected]: pathname === PATHNAMES.SUNFLOWER })}>SUNflower</a>
+						<a className={classNames(styles.link, { [styles.selected]: onSunflower })}>SUNflower</a>
 					</Link>
 				</div>
 
