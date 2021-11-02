@@ -124,6 +124,8 @@
 
 .card .buyButton {
 	border-radius: 0;
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
 	padding: 0.7rem 0;
 	width: 100%;
 	position: absolute;

@@ -11,6 +11,7 @@ import Modal from './modal';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { style } from '@mui/system';
 import classNames from 'classnames';
+import { useEffect } from 'react';
 
 interface CardProps {
 	nft: Thing
@@ -47,6 +48,10 @@ export default function NftCard({ nft }: CardProps) {
 			wallet?.connect({ requestSignIn: true })
 		}
 	}
+	useEffect(() => {
+		console.log("laoded")
+		return console.log("UNloaded")
+	})
 
 
 	const content = (
