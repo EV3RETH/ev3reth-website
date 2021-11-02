@@ -14,8 +14,6 @@ export default function Sunflower() {
 	const [isViewing, setIsViewing] = useState(false)
 	const { nfts, loading, holders } = useMintbaseStore({ storeId: "ev3reth.mintbase1.near" })
 	const { details } = useWallet()
-	console.log("holders", holders)
-	console.log("deatial", details)
 	const hasPurchased = holders?.includes(details.accountId) //TODO: will eventually check wallet for token id
 	const renderedNFTs = useMemo(() => {
 		return nfts.map(nft => <NftCard nft={nft} key={nft.id} />)

@@ -116,7 +116,6 @@ export default function useMintbaseStore({ storeId }: { storeId: string }) {
 	}, [data])
 
 	useEffect(() => {
-		console.log("hodler-----", holderData)
 		if (!holderData?.token) return;
 		setHolders(holderData.token.map((t: any) => t.ownerId))
 	}, [holderData])
