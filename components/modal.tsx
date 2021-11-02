@@ -7,10 +7,9 @@ interface ModalProps {
 	children: React.ReactNode;
 	isOpen: boolean;
 	onClose: () => void;
-	title?: string;
 }
 
-export default function Modal({ children, title, isOpen, onClose }: ModalProps) {
+export default function Modal({ children, isOpen, onClose }: ModalProps) {
 	return (
 		<div className={classNames({ [styles.isOpen]: isOpen }, styles.wrapper)} onClick={() => onClose()}>
 			<div className={classNames(styles.body)} onClick={e => e.stopPropagation()}>

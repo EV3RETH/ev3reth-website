@@ -6,7 +6,7 @@ import styles from '../styles/components/nft-card.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Skeleton from '@mui/material/Skeleton';
 import { formatNear } from '../utils';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import Modal from './modal';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { style } from '@mui/system';
@@ -20,7 +20,9 @@ export default function NftCard({ nft }: CardProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [mediaLoaded, setMediaLoaded] = useState(false)
 	const [showVideo, setShowVideo] = useState(false)
+	const [isPlaying, setIsPLaying] = useState(false)
 	const { wallet, isConnected, details } = useWallet()
+	const mediaRef = useRef<div>()
 	const tokenNumber = nft.tokens.length
 	const individualToken = nft.tokens[0]
 	const media = nft.metadata?.media;
@@ -47,12 +49,19 @@ export default function NftCard({ nft }: CardProps) {
 			wallet?.connect({ requestSignIn: true })
 		}
 	}
+	function captureFocus() {
+		mediaRef.current.focus()
+	}
+	function handleBlur() {
+		setIsPLaying(false)
+		setShowVideo(false)
+	}
 
 	const content = (
 		<>
-			<div className={classNames(styles.mediaContainer, { [styles.hidden]: !mediaLoaded })}>
+			<div className={classNames(styles.mediaContainer, { [styles.hidden]: !mediaLoaded })} ref={mediaRef} onBlur={handleBlur}>
 				{showVideo && video
-					? <ReactPlayer url={video} className={styles.videoPlayer} controls loop={true} playsinline />
+					? <ReactPlayer url={video} className={styles.videoPlayer} controls playsinline onPlay={captureFocus} playing={isPlaying} />
 					: (<>
 						{media &&
 							<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />

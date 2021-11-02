@@ -6,7 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import NftCard from "../components/nft-card";
 import classNames from "classnames";
 import { useWallet } from "../context/mintbase-wallet-context";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 
 const SUNFLOWER_URL = "https://vimeo.com/638908368/0c11145a82"
 
@@ -40,9 +40,7 @@ export default function Sunflower() {
 	const VideoView = (<>
 		<ReactPlayer
 			url={SUNFLOWER_URL}
-			playing
 			controls
-			loop
 			height="35rem"
 			width="100%"
 		/>
