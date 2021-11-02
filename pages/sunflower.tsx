@@ -40,7 +40,7 @@ export default function Sunflower() {
 	const VideoView = (<>
 		<ReactPlayer
 			url={SUNFLOWER_URL}
-			controls
+			controls={true}
 			height="35rem"
 			width="100%"
 		/>
