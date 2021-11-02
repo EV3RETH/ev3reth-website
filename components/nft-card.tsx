@@ -11,7 +11,6 @@ import Modal from './modal';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { style } from '@mui/system';
 import classNames from 'classnames';
-import { useEffect } from 'react';
 
 interface CardProps {
 	nft: Thing
@@ -48,17 +47,12 @@ export default function NftCard({ nft }: CardProps) {
 			wallet?.connect({ requestSignIn: true })
 		}
 	}
-	useEffect(() => {
-		console.log("laoded")
-		return console.log("UNloaded")
-	})
-
 
 	const content = (
 		<>
 			<div className={classNames(styles.mediaContainer, { [styles.hidden]: !mediaLoaded })}>
 				{showVideo && video
-					? <ReactPlayer url={video} className={styles.videoPlayer} controls loop={true} />
+					? <ReactPlayer url={video} className={styles.videoPlayer} controls loop={true} playsinline />
 					: (<>
 						{media &&
 							<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={() => setIsOpen(true)} />
