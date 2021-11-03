@@ -29,23 +29,6 @@ export default function Sunflower() {
 	function closeView() {
 		setIsViewing(false)
 	}
-	const NftView = loading
-		? <CircularProgress color="inherit" className={utilStyles.strokeInAccent} />
-		: (
-			nfts
-				? renderedNFTs
-				: null
-		)
-
-	const VideoView = (<>
-		<ReactPlayer
-			url={SUNFLOWER_URL}
-			controls={true}
-			height="35rem"
-			width="100%"
-		/>
-		<a href={SUNFLOWER_URL} target="_blank" rel="noopener noreferrer">Download Here</a>
-	</>)
 
 	return (
 		<Layout>
@@ -70,11 +53,21 @@ export default function Sunflower() {
 					}
 				</div>
 				<div className={classNames(utilStyles.scrim, utilStyles.centeredList)}>
-					{
-						isViewing
-							? VideoView
-							: NftView
+					{loading
+						? <CircularProgress color="inherit" className={utilStyles.strokeInAccent} />
+						: isViewing
+							? (<>
+								<ReactPlayer
+									url={SUNFLOWER_URL}
+									controls
+									height="35rem"
+									width="100%"
+								/>
+								<a href={SUNFLOWER_URL} target="_blank" rel="noopener noreferrer">Download Here</a>
+							</>)
+							: renderedNFTs
 					}
+
 				</div>
 			</main>
 		</Layout>

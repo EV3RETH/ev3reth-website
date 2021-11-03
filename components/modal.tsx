@@ -16,7 +16,7 @@ export default function Modal({ children, isOpen, onClose }: ModalProps) {
 				<button className={classNames(utilStyles.noStyle, styles.cancel)} onClick={onClose}>
 					<CancelIcon />
 				</button>
-				{children}
+				{isOpen && children}
 			</div>
 		</div>
 	)

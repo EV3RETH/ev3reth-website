@@ -139,7 +139,7 @@
 	transform: scale(1) !important;
 }
 
-.modalContent {
+.content {
 	display: flex;
 	flex-direction: column;
 }
@@ -168,6 +168,7 @@
 }
 
 .modalContent .mintbaseLink {
+	/* display: block; */
 	font-style: italic;
 	text-align: center;
 	margin: 0 0 1rem;
@@ -177,7 +178,7 @@
 	display: none;
 }
 
-.modalContent button {
+.modalContent .buyButton {
 	align-self: center;
 }
 

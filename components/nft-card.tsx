@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import { Thing, buy } from '../hooks/useMintbaseStore';
 import { useWallet } from "../context/mintbase-wallet-context";
 import styles from '../styles/components/nft-card.module.css'
@@ -19,8 +19,10 @@ export default function NftCard({ nft }: CardProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [mediaLoaded, setMediaLoaded] = useState(false)
 	const [showVideo, setShowVideo] = useState(false)
-	const { wallet, isConnected, details } = useWallet()
-	const modalRef = useRef<HTMLDivElement>(null)
+
+	const { wallet, isConnected } = useWallet()
+	const contentRef = useRef<HTMLDivElement>(null)
+
 	const tokenNumber = nft.tokens.length
 	const individualToken = nft.tokens[0]
 	const media = nft.metadata?.media;
@@ -41,9 +43,9 @@ export default function NftCard({ nft }: CardProps) {
 
 	useEffect(() => {
 		if (showVideo) {
-			document.addEventListener("touchstart", handleStop)
+			window.addEventListener("touchstart", handleStop)
 		}
-		return () => document.removeEventListener("touchstart", handleStop)
+		return () => window.removeEventListener("touchstart", handleStop)
 	}, [showVideo])
 
 	function purchase() {
@@ -56,9 +58,9 @@ export default function NftCard({ nft }: CardProps) {
 	}
 
 	function handleStop(e: any) {
-		const path = e.path || e.composedPath()
+		const path = e.composedPath()
 		for (const item of path) {
-			if (item === modalRef?.current) return
+			if (item === contentRef?.current) return
 		}
 		setShowVideo(false)
 	}
@@ -74,10 +76,10 @@ export default function NftCard({ nft }: CardProps) {
 	const Content = ({ playing, inModal }: { playing: boolean, inModal?: boolean }) => {
 		const open = !inModal ? openModal : () => null
 		return (
-			<>
+			<div ref={contentRef} className={styles.content}>
 				<div className={classNames(styles.mediaContainer, { [styles.hidden]: !mediaLoaded })}>
-					{showVideo && video
-						? <ReactPlayer url={video} className={styles.videoPlayer} controls playsinline playing={playing} />
+					{showVideo
+						? <ReactPlayer url={video} className={styles.videoPlayer} controls playsinline playing={playing} width="320px" height="320px" />
 						: (<>
 							{media &&
 								<Image alt={title} src={media} layout="fill" objectFit="contain" onLoadingComplete={() => setMediaLoaded(true)} onClick={open} />
@@ -118,7 +120,7 @@ export default function NftCard({ nft }: CardProps) {
 						: "Buy now"
 					}
 				</button>
-			</>
+			</div>
 		)
 	}
 
@@ -132,7 +134,7 @@ export default function NftCard({ nft }: CardProps) {
 				isOpen={isOpen}
 				onClose={closeModal}
 			>
-				<div className={styles.modalContent} ref={modalRef}>
+				<div className={styles.modalContent}>
 					<Content playing={isOpen} inModal />
 				</div>
 			</Modal>
