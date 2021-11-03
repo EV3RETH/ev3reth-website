@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from "next/link";
 import utilStyles from '../styles/utils.module.css'
 import styles from '../styles/pages/Home.module.css'
 import gridImage from "../public/images/swirly-hazy-grid.webp"
@@ -8,6 +9,7 @@ import { useState } from 'react'
 import Waves from '../components/waves'
 import titleColor from '../public/images/Ev3reth-color.webp'
 import titlePlain from '../public/images/Ev3reth-plain.webp'
+import { PATHNAMES } from '../components/main-navigation'
 
 export const LINKS = {
 	TWITTER: "https://twitter.com/EV3RETH",
@@ -49,6 +51,9 @@ export default function Home({ bgIsLoaded }: HomeProps) {
 					/>
 				</div>
 				<div className={classNames(styles.linksContainer, { [styles.imageLoaded]: bgIsLoaded })}>
+					<Link href={PATHNAMES.SUNFLOWER}>
+						<a className={utilStyles.titleSm}>SUNflower Tickets</a>
+					</Link>
 					<a href={LINKS.PARAS} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Paras</a>
 					<a href={LINKS.OPEN_SEA} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Open Sea</a>
 					<a href={LINKS.TWITTER} className={utilStyles.titleSm} target="_blank" rel="noopener noreferrer">Twitter</a>
