@@ -34,7 +34,8 @@ export default function Sunflower() {
 		<Layout>
 			<main>
 				<h1 className={utilStyles.title}>SUNflower</h1>
-				<p className={utilStyles.infoText}>Purchase a ticket to view the full high-quality version</p>
+        <p className={utilStyles.infoText}>Purchase a ticket to view the full high-quality version</p>
+        <p className={utilStyles.infoText}>PLEASE NOTE: Mintbase's video player is currently broken, but purchasing the NFT will still grant you access to the media player on this website which does work. Sorry for the inconvenience!</p>
 				<div className={utilStyles.centerContent}>
 					{isViewing
 						? <button

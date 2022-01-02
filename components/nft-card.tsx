@@ -51,7 +51,7 @@ export default function NftCard({ nft }: CardProps) {
 	function purchase() {
 		if (isConnected) {
 			if (!loaded) return
-			buy(wallet, nft.tokenId, bigNumPrice)
+      buy(wallet, nft.tokenId, bigNumPrice)
 		} else {
 			wallet?.connect({ requestSignIn: true })
 		}
@@ -110,16 +110,19 @@ export default function NftCard({ nft }: CardProps) {
 					<a className={styles.mintbaseLink} href={link} target="_blank" rel="noopener noreferrer">
 						View on Mintbase
 					</a>
-				}
+        }
+        <a className={styles.mintbaseLink} href={link} target="_blank" rel="noopener noreferrer">
 				<button
 					className={classNames(buyButtonType, styles.buyButton, { [styles.hidden]: !mediaLoaded })}
-					onClick={purchase}
+					// onClick={purchase}
 				>
-					{!isConnected
+					{/* {!isConnected
 						? "Connect NEAR Wallet"
 						: "Buy now"
-					}
+					} */}
+            Buy on Mintbase
 				</button>
+        </a>
 			</div>
 		)
 	}
